@@ -25,11 +25,15 @@ run_one() {
   export MAX_RETRIES=$MR
   export SPIKE=$SPIKE
 
-  docker compose up -d --build kafka zookeeper kafka-init redis-cache generador-respuestas metricas
+  docker compose up -d --build zookeeper kafka redis-cache generador-respuestas metricas
+  sleep 15
+  docker compose up -d kafka-init
   sleep 10
-  docker compose up -d --scale consumidor=$NC consumidor consumidor-retry
+  docker compose up -d --scale consumidor=$NC --no-recreate consumidor consumidor-retry
   sleep 5
-  docker compose up --abort-on-container-exit generador-trafico
+  docker compose up -d --no-recreate generador-trafico
+  docker wait generador-trafico
+  docker logs generador-trafico --tail 5
 
   sleep 20
 

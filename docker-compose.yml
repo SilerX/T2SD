@@ -115,6 +115,7 @@ services:
 
   consumidor:
     build: ./consumidor
+    restart: on-failure
     depends_on:
       kafka:
         condition: service_healthy
@@ -138,12 +139,11 @@ services:
       - URL_METRICAS=http://metricas:5001
       - MAX_RETRIES=${MAX_RETRIES:-3}
       - MODE=main
-    deploy:
-      replicas: ${NUM_CONSUMERS:-2}
 
   consumidor-retry:
     build: ./consumidor
     container_name: consumidor-retry
+    restart: on-failure
     depends_on:
       kafka:
         condition: service_healthy
