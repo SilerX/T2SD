@@ -1,6 +1,6 @@
 # Tarea 2 - Sistemas Distribuidos
 
-## Procesamiento y Fallback con Apache Kafka
+## Procesamiento y Fallback con Apache Kafka (post tarea 1)
 
 Sistema distribuido que evoluciona la arquitectura de la Tarea 1 incorporando
 Apache Kafka como sistema de mensajería para procesamiento asíncrono,
